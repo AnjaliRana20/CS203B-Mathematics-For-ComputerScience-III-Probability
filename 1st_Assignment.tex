@@ -1,0 +1,213 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage}
+\usepackage{amsthm}
+%\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{scrextend}
+\usepackage{todonotes}
+\usepackage{tikz}
+\usepackage{thmtools,thm-restate}
+\usepackage{setspace}
+\usepackage[colorlinks]{hyperref}
+\usepackage{extramarks}
+\usepackage{enumerate}
+\usepackage[outline]{contour}
+
+\input{./bib/customurlbst/bibmacros}
+
+% Update these details with your Group Number, Member Names (Roll No.).
+\newcommand{\MembAName}{Anjali Rana (190147)}
+
+% Font
+\usepackage[rm,light]{roboto}
+\usepackage[T1]{fontenc}
+% Or you could use ...
+% \usepackage{mathpazo}
+
+\input{./macros}
+\allowdisplaybreaks
+
+\begin{document}
+    \noindent
+    \input{header}
+    \onehalfspace
+
+    \begin{question}
+        Two dice (with six faces) are rolled and their scores are $S_0$, $S_1$. What is the probability that the quadratic equation $x^2 + S_1x + S_0 = 0$ has real roots?
+    \end{question}
+    \begin{solution}
+        $\because$ Two dices are rolled, so total number of possible outcomes = $6*6$ = $36$     \quad\quad  ..$(1)$\\
+        For the quadratic equation $x^2 + S_1x + S_0 = 0$ to have real roots, the discriminant must be greater than or equal to 0.\\
+        $\therefore$ $S_1^2 - 4S_0 \ge 0$ $(b^2-4ac\ge0)$\\
+        So, Favourable cases:
+        \begin{align*}
+        &(2,1)\\
+        &(3,1),(3,2)\\
+        &(4,1),(4,2),(4,3),(4,4)\\
+        &(5,1),(5,2),(5,3),(5,4),(5,5),(5,6)\\
+        &(6,1),(6,2),(6,3),(6,4),(6,5),(6,6)\\
+        \end{align*}
+        No. of favourable cases = $19$      \quad\quad  ..$(2)$\\
+        So,\\ $P(\text{equation has real roots)}$ \:=\: $\frac{\text{No. of Favourable outcomes}}{\text{Total no. of possible outcomes}}$
+        = $\frac{19}{36}$     \quad\quad  (from $(1)$ and $(2)$)
+    \end{solution}
+
+    \begin{question}
+        An urn contains $n$ Red and $n$ Blue balls. A fair die with $n$ sides is rolled; if $r^{th}$ face appears then $r$ balls are removed from the urn and placed in a bag. Now pick a random ball from the bag. What is the probability that it is a Red ball?
+    \end{question}
+    
+    \begin{solution}
+        P(getting $r_{th}$ face) = $\frac{1}{n}$(since there are total $n$ faces)          ..(1)\\
+        Total no. of ways of choosing $r$ balls from the urn
+        \begin{align*}
+            &\sum_{l=0}^{n}{n \choose l}{n \choose (r-l)}\quad\quad \\
+            &\text{(taking $l$ Red balls and $(r-l)$ Blue balls from urn)}\\
+            = & \text{Coefficient of } x^r \text{in} \:(1+x)^n(1+x)^n\\
+            = & {2n \choose r} \quad\quad ..(2)
+        \end{align*}
+        Suppose we take $k$ Red balls from the urn and thus $r-k$ Blue balls. Probability of doing this is i.r Probability of picking $k$ red balls from urn is:
+        \begin{align*}
+            & =\frac{{n \choose k}{n \choose (r-k)}}{{2n \choose r}}\quad\quad \text{(from $(2)$)}\quad\quad..(3)\\
+        \end{align*}
+        Now, if there are $k$ Red balls and $(r-k)$ Blue balls in the bag to probability of picking Red ball from bag= 
+        \begin{align*}
+            & =\frac{k}{r}\quad\quad ..(4)\\
+        \end{align*}
+        So from $(1)$, $(3)$ and $(4)$,
+        \begin{align*}
+        & \text{From conditional probability we have $P(A/B)=\frac{(A \cap B)}{P(B)}$, So,}\\
+        & P(\text{picking red ball from bag $\cap$ $k$ Red balls are drawn from urn})\\
+        =&P(\text{$k$ red balls are drawn from urn})P(\text{picking red ball from bag/ $k$ red balls were drawn from urn})\\
+        = & \frac{1}{n}\frac{{n \choose k}{n \choose (r-k)}}{{2n \choose r}}\frac{k}{r}
+        \end{align*}
+        Hence, the required probability is the summation of $k$ from $1$ to $r$
+        \begin{align*}
+            = & \sum_{k=1}^{r}\frac{1}{n}\frac{{n \choose k}{n \choose (r-k)}}{{2n \choose r}}\frac{k}{r}\quad\quad..(5)\\
+        \end{align*}
+        Now,
+        \begin{align*}
+            &(1+x)^n=  \sum_{k=1}^{n}{n \choose k}x^k\\
+            &\text{differentiating both sides wrt x}\\
+            &n(1+x)^{n-1}=k{n \choose k}x^{k-1} \quad\quad ..(6)\\
+        \end{align*}
+        Now using $(6)$ and giving similar argument as in $(2)$, we get
+        \begin{align*}
+             \sum_{k=1}^{r}{n \choose k}{n \choose (r-k)}k=& \text{Coefficient of}\: x^{r-1} \:\text{in} \:n(1+x)^{n-1}(1+x)^n\\
+            =& n{(2n-1) \choose (r-1)} \quad\quad ..(7)\\
+        \end{align*}
+        Put $(7)$ in $(5)$
+        \begin{align*}
+             = & \sum_{k=1}^{r}\frac{1}{n}\frac{{n \choose k}{n \choose (r-k)}}{{2n \choose r}}\frac{k}{r}\quad\quad\\
+             = & \sum_{k=1}^{r}\frac{1}{n}\frac{n{(2n-1) \choose (r-1)}}{r{2n \choose r}}\quad\quad\\
+             = & \sum_{k=1}^{r}\frac{1}{2}\\
+             = & \frac{1}{2}
+        \end{align*}
+        Hence, P(Red ball is picked from the bag) = \boldmath{$\frac{1}{2}$}
+    \end{solution}
+
+    \begin{question}
+        $[Murphy’s \:Law]$ A fair coin is tossed repeatedly. Let $s$ denote any fixed sequence of heads and tails of length $r$. Show that with probability one the sequence $s$ will eventually appear in $n$ tosses of the coin (as $n \rightarrow \inf$). \\$Thus, \:anything \:that\: can\: go\: wrong,\: will\: go\: wrong!$
+    \end{question}
+       
+    \begin{solution}
+        Since this is an infinite sample space problem, we cannot deal with elements for calculating probability. We need to deal with groups.\\
+        So, we take disjoint groups consisting of $r$ consecutive outcomes obtained by tossing the coin i.e. each group is a sequence of heads or tails and is length $r$.\\
+        Now, the probability that one of these groups is $s$ is :
+        \begin{align*}
+            = & \frac{1}{2}.\frac{1}{2}.\frac{1}{2}.....\text{(r times)}\\
+            = & (\frac{1}{2})^r
+        \end{align*}
+        (This is because probability of $i_{th}$ outcome being head or tail is $\frac{1}{2}$. So, for getting a fixed sequence of heads and tails, each outcome being independent of each other, we simply multiply their probabilities)\\
+        Now, let $X$ be the probability that $s$ occurs anywhere in the first $nk$ tosses.
+        Also, let $Y$ be the probability that $s$ in atlest one of the first $n$ groups. So, we need to find $X$. \\For this we calculate $Y^c$ since finding $Y^c$ i.e $s$ does not occur in any first $n$ groups is easier. So,
+        \begin{align*}
+            Y^c = &\lim_{n \to \inf}\text{P($s$ does not occur in any of the first n groups)}\\
+            = &\lim_{n \to \inf}(1-(\frac{1}{2})^r)^n\\
+            = &0
+        \end{align*}
+        So, $Y=1-Y^c=1$\\
+        Now, $X\ge Y$ as $Y$ restricts the starting of $s$ to be at intervals of length $r$ but there is no such restriction in $Y$.\\
+        $\therefore X = 1$\\
+        Hence, P($s$ will turn up eventually) = $X$ = $1$.
+    \end{solution}
+
+    \begin{question}
+        There are six letters and envelopes each. They are equally distributed in three colors: $R$, $W$ and $B$. Place the letters randomly in envelopes arranged in a line. What is the probability that no letter is in an envelope of the same colour?
+    \end{question}
+
+    \begin{solution}
+        There are 6 envelopes of colours $R$, $W$ and $B$. Suppose we place them in this in order:
+        \begin{align*}
+            RRWWBB
+        \end{align*}
+        So, no. of ways to permute 6 letters in these envelopes = $6!$\\
+        But, since there are two letters each of same color, if we switch those two same coloured letters then the permutation remains same.\\
+        So, no. of distinct permutations = $\frac{6!}{2^3}$ = $90$\\
+        Now, the only permutations when no letter is in the same coloured envelope are:
+        \begin{align*}
+        & WWBBRR, BBRRWW\\
+        & (2*2*2\: \text{cases when}\: RR\: \text{has} \:WB,\: WW \:\text{has} \:RB\: \text{and} \:BB \:\text{has}\: WR) : \\
+        & WBRBRW, WBRBWR\\
+        & WBBRRW, WBBRWR\\
+        & BWRBRW, BWRBWR\\
+        & BWBRRW, BWBRWR
+        \end{align*}
+        So, no. of favourables permutations = $10$\\
+        Total no. of possible permutations = $90$\\
+        Hence,\\ P(no letter is in an envelope of the same colour) = $\frac{10}{90}=\frac{1}{9}$
+    \end{solution}
+
+    \begin{question}
+        $[Recruitment]$ The famous company BigBucks wants to visit IITK to hire the best qualified student. There are $n$ applicants. The constraints put by the Placements Office is:\\
+        $(1)$ The interview panel will select only $one$ student.\\
+        $(2)$ Each applicant has to be informed about the accept/reject decision $immediately$ after the interview. The quality of the candidate, revealed by the interview, can be assumed to be a real number in $[0, 1]$.\\
+        $(3)$ The applicants appear for interview in a uniformly random order.\\ Devise an algorithm for BigBucks’ hiring. Give an analysis to estimate the probability that BigBucks ends up hiring $the$ best applicant in IITK.
+    \end{question}
+
+    \begin{solution}
+        We have to design an algorithm for BigBucks' hiring in which the company accepts/rejects an applicant just after the interview. The algorithm should be such that the probability of selecting the best applicant is maximum.
+        We devise the following algorithm:\\
+        \\
+        The company should reject the first $r$ applicants and note down the maximum value of quality among those $r$ candidates. The company then selects the next applicant which has quality value more than the maximum quality value noted by the company. If there is no such applicant found till last, the  the company selects the last applicant.\\
+        \\
+        Now, we need to find such a $r$ such that the probability of selecting the best candidate using above algorithm is maximum.\\
+        Suppose,
+        \begin{align*}
+        &P(r)=\text{Probability of selecting the best candidate when first $r$ candidates are rejected}\\
+        &P(r)=\sum_{j=1}^{j=n} P(j_{th}\:\text{candidate is selected and}\: j_{th}\: \text{candidate is best)}\\
+        & \text{From conditional probability we have $P(A/B)=\frac{(A \cap B)}{P(B)}$, So,}\\
+        &P(r)= \sum_{j=1}^{j=n} P(j_{th}\:\text{candidate is selected /} \:j_{th}\: \text{candidate is best)} \cdot P(\text{$j_{th}$ candidate is best)}\\
+        & \text{Now, \:$\because$ None of the first $r$ candidates is selected,}\\
+        & \sum_{j=1}^{j=r} P(j_{th}\:\text{candidate is selected /} j_{th} \text{candidate is best)}=0  \\ 
+        & \text{Also, $P$(\text{$j_{th}$ candidate is best)} = $\frac{1}{n}$}\\
+        &\therefore P(r)= \sum_{j=r+1}^{j=n} P(j_{th}\:\text{candidate is selected /} \:j_{th}\: \text{candidate is best)} \cdot \frac{1}{n}\\
+        &P(r)= \sum_{j=r+1}^{j=n} P(\text{second best candidate is in first $r$ candidates /} \:j_{th}\: \text{candidate is best)} \cdot \frac{1}{n}\\
+        &P(r)= \frac{1}{n} \cdot \sum_{j=r+1}^{j=n} \frac{r}{j-1}\quad\quad..(1)
+        \end{align*}
+        We now find the probability in $(1)$ using integration as $n \rightarrow \inf$\\
+        So, 
+        \begin{align*}
+            &P(r)= \frac{1}{n} \cdot \sum_{j=r+1}^{j=n} \frac{r}{j-1}\\
+            &\text{(Put $c  = \frac{r}{n}$, $x = \frac{j-1}{n}$ and so, $dx = \frac{1}{n}$)}\\
+            &=c \cdot \int_{c}^{1}\frac{dx}{x}\\
+            &=-c \cdot ln(c)\quad\quad..(2)
+        \end{align*}
+        Now, differentiating $(2)$ w.r.t $c$ will give the value of $c$ at $P(r)$ is maximum.\\
+        So, 
+        \begin{align*}
+            &\frac{d(-c\cdot ln(c))}{dc}=0\\
+            &1-ln(c)=0\\
+            &c=\frac{1}{e}
+        \end{align*}
+        Hence, maximum value of $P(r)$ occurs at $c=\frac{1}{e}$.\\
+        So, the optimal value of $r$ is $r=nc=$\boldmath$\frac{n}{e}$.\\
+        And maximum value of Probability that the best candidate is selected if the above algorithm is followed (i.e. P(r)) is \boldmath{$\frac{1}{e}$} and it occurs at $r=\frac{1}{e}$.\\
+        
+        So, the company should reject first $[\frac{n}{e}]$ candidates, and then select the next candidate with a score more than those of the first $[\frac{n}{e}]$ candidates. In this way, the probability that the company will end up hiring the best candidate is $\frac{1}{e}$.
+    \end{solution}
+     Refrences used are:\\
+    https://www.geeksforgeeks.org/secretary-problem-optimal-stopping-problem/\\
+    Grimmett&Stirzaker-1000 Probability.pdf
+   
+\end{document}  

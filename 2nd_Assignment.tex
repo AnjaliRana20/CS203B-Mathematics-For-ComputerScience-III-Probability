@@ -1,0 +1,283 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage}
+\usepackage{amsthm}
+%\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{scrextend}
+\usepackage{todonotes}
+\usepackage{tikz}
+\usepackage{thmtools,thm-restate}
+\usepackage{setspace}
+\usepackage[colorlinks]{hyperref}
+\usepackage{extramarks}
+\usepackage{enumerate}
+\usepackage[outline]{contour}
+
+\input{./bib/customurlbst/bibmacros}
+
+% Update these details with your Group Number, Member Names (Roll No.).
+\newcommand{\MembAName}{Anjali Rana (190147)}
+
+% Font
+\usepackage[rm,light]{roboto}
+\usepackage[T1]{fontenc}
+% Or you could use ...
+% \usepackage{mathpazo}
+
+\input{./macros}
+\allowdisplaybreaks
+
+\begin{document}
+    \noindent
+    \input{header}
+    \onehalfspace
+
+    \begin{question}
+        $[5 \:\text{points}]$ We toss a fair coin $n$ times. Prove that the length of the longest sequence of consecutive heads will not be more than $2 log n$ with probability at least $1$-$\frac{1}{n}$.
+   
+    \end{question}
+
+    \begin{solution}
+        \textbf{To Prove:} Longest sequence of consecutive heads will not be more than $2 log n$ with probability at least $1$-$\frac{1}{n}$
+        \begin{proof}
+            Let $N(k)$ = Number of sequences of length $n$ in which longest sequence of consecutive heads is atleast $k$.\\
+            For calculating this count, we select $k$ places and allow anything to be present at the left $n-k$ places. But in doing so, we calculate many cases more than once. \\
+            For example: Suppose $n=5$ and $k=2$. If we fix $k$ places from index $2$ to $3$, then we count this case: THHHT here once.
+            Then when we we fix $k$ places from index $3$ to $4$, we again count this case when we allow anything to be present at the rest positions.\\
+            So, we saw that there are a lot of overlapping cases here.\\
+            Now, ways of choosing consecutive $k$ places from $n$ places are $n-k+1$ and ways of allowing anything to be present at left $n-k$ places are $2^{n-k}$.
+            Hence we have,
+            \begin{center}
+            $N(k)\leq(n-k+1)2^{n-k}$
+            \end{center}
+            Total number of possible sequences are $2^k$.\\
+            Let $A$ be the event in which longest sequence of consecutive heads is atleast $k$. So,\\
+            \begin{align*}
+                P(A) = & \frac{Favourable\: Cases}{Total\: Cases}\\
+                \leq & \frac{(n-k+1)2^{n-k}}{2^n}\\
+                \quad\quad&\textbf{Put \boldmath{$k=2logn + 1$}}\\
+                \leq & \frac{(n-2logn)2^{n-2logn-1}}{2^n}\\
+                \leq & \frac{(n-2logn)}{2n^2}\\
+                \leq & \frac{(n)}{2n^2}\\
+                \leq & \frac{1}{2n}\\\leq & \frac{1}{n}\\
+                1-P(A)\leq & 1-\frac{1}{n}
+            \end{align*}
+            Now, \\$1-P(A)$ = Probability that longest sequence of heads is less than or equal to $(k-1)$ (i.e. $2logn$).\\ 
+            Hence proved,\\ P(longest sequence of heads is no more than $2logn) \leq 1-\frac{1}{n}$ 
+        \end{proof}
+    \end{solution}
+
+    \begin{question}
+        $[5+3 \: \text{points}]$ There are two bridges from town $A$ to town $B$ and two bridges from town $B$ to town $C$. Each of the four bridges is blocked by snow with probability $p$, independent of the others.
+        \begin{itemize}
+            \item Find the probability that there is an open bridge from $A$ to $B$ given that there is no open route from $A$ to $C$.
+            \item Say, in addition, there is a direct bridge from $A$ to $C$; this bridge being blocked with probability $p$ independently of the others. Find the required conditional probability mentioned above.
+        \end{itemize}
+    \end{question}
+    \begin{solution}
+        We define the following events:\\
+        $XorY$ : There exists an open route from $X$ to $Y$.\\
+        $XnorY$ : There is no open route from $X$ to $Y$.\\
+        $XobY$ : There exists an open bridge from $X$ to $Y$.\\
+        $XnobY$ : There is no open bridge from $X$ to $Y$.\\
+        
+        (a)
+        \begin{align*}
+            P(AobB/AnorC) = &\frac{P(AobB)P(AnorC/AobB)}{P(AnorC)}\\
+        \end{align*}
+        (i) As per the question,\\ $P(AnobB)$ = P(both bridges from $A$ to $B$ are blocked(independently)) = $p^2$\\
+        So, $P(AobB)$ = 1-$P(AnobB)$ =  $1-p^2$\quad\quad...(1)\\\\
+        (ii) $P(AnorC/AobB)$:\\
+        We have an open bridge from $A$ to $B$. If there must be no open route from $A$ to $C$ then every bridge from $B$ to $C$ must be closed. Hence,\\
+        $P(AnorC/AobB)$ = P (both bridges from $B$ to $C$ are closed) = $p^2$\quad\quad...(2)\\\\
+        (iii)\begin{align*}
+            P(AnorC) = &1 - P(AorC) \\= &1 - P(AobB)P(BobC)\\=& 1-(1-p^2)(1-p^2)
+            \quad\quad...(3)
+        \end{align*}
+        (Since $P(AobB)=P(BobC)=1-p^2$ (from (1))\\\\\\
+        Put (1), (2) and (3) in (a):
+        \begin{align*}
+            P(AobB/AnorC) = &\frac{(1-p^2)(p^2)}{(1-(1-p^2)(1-p^2))}\\
+            = & \frac{1-p^2}{2-p^2}\\\\
+        \end{align*}
+        (b)
+        \begin{align*}
+            P(AobB/AnorC) = &\frac{P(AobB)P(AnorC/AobB)}{P(AnorC)}\\
+        \end{align*}
+        (i)As per the question,\\ $P(AnobB)$ = P(both bridges from $A$ to $B$ are blocked(independently)) = $p^2$ (No effect of added bridge from $A$ to $C$\\
+        So, here also $P(AobB)$ = $1-P(AnobB)$ =  $1-p^2$\quad\quad...(1)\\\\\\
+        (ii)$P(AnorC/AobB)$:\\ We have an open bridge from $A$ to $B$. So, if we want that there must be no open route from $A$ to $C$ then the direct bridge from $A$ to $C$ must be closed (independently from others) AND also every bridge from $B$ to $C$ must be closed (since there is an open bridge from $A $ to $B$ and we don't want an open route from $A$ to $C$). Hence,
+        \begin{align*}
+            P(AnorC/AobB) = &P (\text{both bridges from $B$ to $C$ are closed AND direct bridge from A to C is closed} )\\&\text{(Since direct route is independent of route via B, we have):}\\ = &P(\text{both bridges from $B$ to $C$ are closed})P(\text{direct bridge from A to C is closed})\\= &p^2p \\=& p^3\quad\quad...(2)\\\\
+        \end{align*}
+        (iii) \begin{align*}
+        P(AnorC) = &P(\text{direct bridge from A to C is closed AND route from A to C via B is closed})\\&\text{(Since direct route is independent of route via B, we have):} \\=& P(\text{direct bridge from A to C})P(\text{route from A to C via B is closed})\\=&p(1 - P(AorC))\\ = &p(1 - P(AobB)P(BobC))\\=& p(1-(1-p^2)(1-p^2))\quad\quad...(3)\\\\
+        \end{align*}
+        Put (1), (2) and (3) in (a):
+        \begin{align*}
+            P(AobB/AnorC) = &\frac{(1-p^2)p^3}{p(1-(1-p^2)(1-p^2))}\\
+            = & \frac{1-p^2}{2-p^2}
+        \end{align*}
+        Hence, in both the cases, we get the same probability.
+    \end{solution}
+
+    \begin{question}
+        $[7 points]$ In a male-dominated sexist society, there are $n$ married couples. Each married couple aims at having at least one male child. So each couple practises the following rule: Keep on producing children until either the number of children becomes $10$ or one male child is born. What will be the ratio of males and females in the next generation? Assume that each child is going to be male or female with equal probability. Give mathematical reason in support of your answer.
+    \end{question}
+    \begin{solution}
+        Suppose we define random variable $X$ = number of males in society.\\
+        Let $X_i$  = number of males in family $i$.\\
+        So, $X=\sum_{i=1}^{n}X_i$\\
+        Probability distribution function of $X_i:\\(i)P(X_i=0)$=all $10$ females =$(\frac{1}{2})^{10}$\\
+        (ii)$P(X_i=1)$ calculated in $(2)$\\\\\\
+        Now we have,
+        \begin{align*}
+            & E[X] = E[\sum_{i=1}^{n}X_i]\\
+            & \text{Using linearity of expectation,}\\
+            & E[X] = \sum_{i=1}^{n}E[X_i]\\
+            & \text{$\because$ all $X_i$ are identical,}\\
+            &E[X]=nE[X_1]
+        \end{align*}
+        Now,
+        \begin{align*}
+            & E[X_1] = \sum_{x \in Range(X_1)}P(X_1=x)x\\
+            & \text{Since $X_1$ can take only values 0 or 1,}\\
+            & E[X_1] = P(X_1=1).1+P(X_1=0).0 \quad\quad..(1)\\
+        \end{align*}
+        Now, let $M_i$ be the event that the $i_{th}$ child is male (i.e. first $(i-1)$ children are females).
+        \begin{align*}
+            P(X_1=1)=&\sum_{i=1}^{10}M_i\\
+            =& \sum_{i=1}^{10}(\frac{1}{2})^i\\
+            &\textit{(Using summation of GP with common ratio=$\frac{1}{2}$)}\\
+            =& \frac{\frac{1}{2}(1-(\frac{1}{2})^{10})}{1-\frac{1}{2}}\\
+            =&1-(\frac{1}{2})^{10}\quad\quad...(2)
+        \end{align*}
+        Putting $(2)$ in $(1)$,
+        \begin{center}
+        $E[X_1] = 1-(\frac{1}{2})^{10}$
+        \end{center}
+        So, 
+        \begin{center}
+        $E[X] = nE[X_1] = n(1-(\frac{1}{2})^{10})\quad\quad...(3)$\\
+        \end{center}
+        \vspace{10mm}
+        Now, suppose we define random variable $Y$ = number of females in society.\\
+        Let $Y_i$  = number of females in family $i$.\\
+        So, $Y=\sum_{i=1}^{n}Y_i$\\\\
+        Probability distribution function of $Y_i:\\P(Y_i=y<10)$ = first $y$ females and $(y+1)_{th}$child as male = $(\frac{1}{2})^{y+1}\quad$     ...(4)\\
+        P($Y_i=10$) = all 10 children are female = $(\frac{1}{2})^{10}\quad$         ...(5)\\\\
+        Now we have,
+        \begin{align*}
+            & E[Y] = E[\sum_{i=1}^{n}Y_i]\\
+            & \text{Using linearity of expectation,}\\
+            & E[Y] = \sum_{i=1}^{n}E[Y_i]\\
+            & \text{$\because$ all $Y_i$ are identical,}\\
+            &E[Y]=nE[Y_1] \quad\quad..(6)
+        \end{align*}
+        Now,
+        \begin{align*}
+            & E[Y_1] = \sum_{y \in Range(Y_1)}P(Y_1=y)y\\
+            & \text{Since $Y_1$ can take values 0 to 10,}\\
+            & E[Y_1] = \sum_{y=0}^{10}P(Y_1=y)y\\
+            & E[Y_1] = \sum_{y=0}^{10}P(Y_1=y)y\\
+        \end{align*}
+        Now using probability distribution function from $(4)$ and $(5)$ we get,
+        \begin{align*}
+            & E[Y_1] = \sum_{y=0}^{10}P(Y_1=y)y\\
+            & E[Y_1] = 10(\frac{1}{2})^{10} + \sum_{y=0}^{9}(\frac{1}{2})^{y+1}y\quad\quad...(7) \\
+        \end{align*}
+        Suppose,
+        \begin{align*}
+            & A = \sum_{y=1}^{9}(\frac{1}{2})^{y+1}y\quad\quad...(i)\\
+            & \text{Multiply both sides with $\frac{1}{2}$}\\
+            & \frac{1}{2}A = \sum_{y=1}^{9}(\frac{1}{2})^{y+2}y\quad\quad...(ii)\\
+            & \text{Subtract ii from i}\\
+            & \frac{1}{2}A =\sum_{y=1}^{9}(\frac{1}{2})^{y+1}-(\frac{1}{2}^{11})9\\
+            & A =(\sum_{y=1}^{9}(\frac{1}{2})^{y})-9(\frac{1}{2})^{10}\\
+            & A =(1-(\frac{1}{2})^{9})-9(\frac{1}{2})^{10}
+        \end{align*}
+        Putting A in $(7)$,\\
+        \begin{align*}
+            & E[Y_1]  = 10(\frac{1}{2})^{10} + (1-(\frac{1}{2})^{9})-9(\frac{1}{2})^{10}\\
+            & E[Y_1] = 1-(\frac{1}{2})^{10}\\
+            & E[Y] = nE[Y_1]\quad\quad...\text{(from 6)}\\
+            & E[Y] =  n(1-(\frac{1}{2})^{10})\quad\quad...(8)
+        \end{align*}
+        From (3) and (8)
+        \begin{align*}
+            &\frac{E[X]}{E[Y]}=\frac{n(1-(\frac{1}{2})^{10})}{n(1-(\frac{1}{2})^{10})}\\
+            &\frac{E[X]}{E[Y]}=1
+        \end{align*}
+        
+    \end{solution}
+
+    \begin{question}
+        $[5 \: points]$ $X$ is a continuous random variable with probability distribution function $F_X(x) := P(X \leq x). Y$ is another continuous random variable with probability distribution function $F_Y(y) := P(Y \leq y)$. Variables $X$ and $Y$ are independent. Let $Z := min(X,Y).$ What is the probability distribution function $F_Z$ for $Z$?
+    \end{question}
+    
+    \begin{solution}
+        We have,\\
+        $F_X(x) := P(X \leq x)$ and $F_Y(y) := P(Y \leq y)$\\
+        Now,\\
+        $F_Z(z) := P(Z \leq z)$     ...(1)\\
+        So,
+        \begin{align*}
+            P(Z \leq z) = & 1 - P(Z > z)\\
+            =& 1 - P(\text{min}(X,Y) > z)\\
+            =& 1 - P(X > z \:\:\text{and}\:\: Y > z)\\
+            =& 1 - P(X > z)P(Y > z)\quad\quad\quad\text{$\because$ X and Y are independent, P(X and Y) = P(X) P(Y)}\\
+            =& 1 - (1-P(X\leq z)) (1-P(Y \leq z))\\
+            =& 1 - (1-F_X(z))(1-F_Y(z))\\ 
+            =& 1 - (1-F_X(z)-F_Y(z)+F_X(z)F_Y(z))\\
+            =& F_X(z)+F_Y(z)-F_X(z)F_Y(z)\\
+        \end{align*}
+        Hence,\\
+        $F_Z = F_X(z)+F_Y(z)-F_X(z)F_Y(z)$.
+    \end{solution}
+
+    \begin{question}
+        $[10 \: points]$ Let $Q : [n] \rightarrow [n]$ be a bijection. There is a standard technique to decompose Q as a product of disjoint cycles. For example, $C_1 := (i_1 := 1;Q(i_1);Q^2(i_1);\cdots)$ gives the first cycle. Next, consider an element $i_2 \notin C1$ to define $C_2 := (i_2;Q(i_2);Q^2(i_2); \cdots)$ as the second cycle; and so on till all the elements $[n]$ are covered. Then, $(C_1;C_2;\cdots;C_r)$ is essentially a unique cycle decomposition for $Q$.\\
+        Pick a $random$ bijection $Q$ on $[n]$. What is the expected number of cycles $r$ for $Q$?
+    \end{question}
+
+    \begin{solution}
+        We define a random variable A such that,\\
+        $A$ = total number of cycles in $Q$\\
+        Now let $L_i$ = length of cycle containing $i$ \\
+        Let $A_i$ = $L_i^{-1}$\\
+        Suppose first cycle has $k$ numbers (i.e. $L_i=k \:\forall i\in \text{first cycle}$). So when we sum $k^{-1}$ for every $i$(i.e. $k^{-1}$ is added k times, it gives 1, i.e. first cycle).
+        Adding in the similar way for all numbers, we get the total number of cycles.Hence, we get\\
+        \begin{align*}
+            &A = \sum_{j=1}^{n}A_j\\
+            &E[A] = E[\sum_{j=1}^{n}A_j]\\
+            &\text{Using linearity of expectation,}\\
+            &E[A] = \sum_{j=1}^{n}E[A_j]\quad\quad...(1)\\
+            &\textit{Using definition of expectation,}\\
+            &E[A_j]=\sum_{i=1}^{n}\frac{1}{i}P(A_j=\frac{1}{i})\quad\quad...(2)\\
+        \end{align*}
+        Now we need to calculate $P(A_j=\frac{1}{i})$, i.e. probability that length of cycle containing $j$ is $i$.\\
+        Counting favourable bijections:\\Choose $i-1$ numbers from the $n-1$ numbers in Range (since $j$ cannot be mapped to itself unless $i=1$). This forms a cycle of $i$ numbers. Now, number of different possible mappings among these $i$ numbers are $(i-1)!$. This is because $j$ can be mapped to $i-1$ values among these. Then, $Q(j)$ can be mapped to left $(i-2)$ values and so on, giving value as $(i-1)!$.\\
+        And then the rest of the numbers which are not present in this cycle (i.e. $n-i$) form bijection with the left $n-i$ numbers in Range using $(n-i)!$ ways.
+        Hence,\\ \\
+        \text{Number of favourable bijections in which $(A_j=i^{-1})$} = ${{(n-1)}\choose{(i-1)}} (n-i)!(i-1)!$\\
+        $\textit{Total possible bijections}=n!$\\
+        \text{So,}\\
+        \begin{align*}
+            &P(A_j=i^{-1})=\frac{{{(n-1)}\choose{(i-1)}} (n-i)!(i-1)!}{n!}\\
+            &P(A_j=i^{-1})=\frac{(n-1)!}{n!}\\
+            &P(A_j=i^{-1})=\frac{1}{n}\quad\quad...(3)\\
+        \end{align*}
+        Put $(3)$ in $(2)$,\\
+        \begin{align*}
+            &E[A_j]=\sum_{i=1}^{n}\frac{1}{i}\frac{1}{n}\\
+            &E[A_j]=\frac{1}{n}\sum_{i=1}^{n}\frac{1}{i}\\
+            &E[A]=\sum_{j=1}^{n}\frac{1}{n}\sum_{i=1}^{n}\frac{1}{i}\quad\quad\text{From ($1$)}\\
+            &E[A]=\sum_{i=1}^{n}\frac{1}{i}\\
+            &E[A]\approx ln(n) + \gamma
+        \end{align*} 
+        Hence,\\
+        $E[A]\approx ln(n) + \gamma \quad\quad\text{(where $\gamma$ is euler's contant)}$
+        
+    \end{solution}
+\end{document}  
